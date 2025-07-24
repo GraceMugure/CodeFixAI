@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CodeFixAI</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header><h1>CodeFixAI</h1></header>
+  <div class="container">
+    <h2>Paste your Python code</h2>
+    <textarea id="codeInput" rows="15" cols="80"></textarea><br>
+    <button onclick="analyze()">Analyze</button>
+    <pre id="result"></pre>
+  </div>
+
+  <script>
+    async function analyze() {
+      const code = document.getElementById('codeInput').value;
+      const response = await fetch('http://127.0.0.1:5000/analyze', {
+
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ code: code })
+      });
+      const data = await response.json();
+      document.getElementById('result').innerText = JSON.stringify(data, null, 2);
+    }
+  </script>
+</body>
+</html>
